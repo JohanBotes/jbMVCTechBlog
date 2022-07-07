@@ -22,6 +22,11 @@ const users = [
         password: 'mottsfruitsnacks'
     },
 
+    {
+        username: 'Jake',
+        password: 'fuckthis'
+    },
+
 ]
 
 const posts = [

@@ -16,9 +16,11 @@ router.post('/', async (req, res) => {
       res.json(newUser);
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });
+
 
 router.post('/login', async (req, res) => {
   try {
@@ -33,10 +35,8 @@ router.post('/login', async (req, res) => {
       return;
     }
 
-    const validPassword = user.checkPassword(req.body.password);
-
-    if (!validPassword) {
-      res.status(400).json({ message: 'No user account found!' });
+    if (!(await user.validatePassword(req.body.password))) {
+      res.status(400).json({ message: 'Invalid password' });
       return;
     }
 
@@ -48,7 +48,8 @@ router.post('/login', async (req, res) => {
       res.json({ user, message: 'You are now logged in!' });
     });
   } catch (err) {
-    res.status(400).json({ message: 'No user account found!' });
+    console.log(err);
+    res.status(400).json({ message: 'Some weird error' });
   }
 });
 

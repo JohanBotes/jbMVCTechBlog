@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3001;
 
 const sequelizeConnection = require('./config/sequelizeConnection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const models = require('./models'); // init models
 
 const sess = {
   secret: 'Super secret secret',
@@ -31,8 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-//app.use(require('./controllers/'));
-require('./models');
+app.use(require('./controllers/'));
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);

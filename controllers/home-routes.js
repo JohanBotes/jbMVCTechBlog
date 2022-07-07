@@ -5,14 +5,21 @@ const { Post, Comment, User } = require('../models/');
 router.get('/', async (req, res) => {
   try {
     // we need to get all Posts and include the User for each (change lines 8 and 9)
+    // *DONE
     const postData = await Post.findAll({
       include: [User],
     });
     // serialize the data
+    // *DONE
     const posts = postData.map((post) => post.get({ plain: true }));
     // we should render all the posts here
-    res.render('hmmmm what view should we render?', { posts });
+    // *DONE
+    res.render('all-posts', { 
+      posts, 
+      session: req.session 
+    });
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });
@@ -22,7 +29,8 @@ router.get('/post/:id', async (req, res) => {
   try {
     // what should we pass here? we need to get some data passed via the request body (something.something.id?)
     // change the model below, but not the findByPk method.
-    const postData = await SomeModel.findByPk(????, {
+    // *DONE
+    const postData = await Post.findByPk(req.params.id, {
       // helping you out with the include here, no changes necessary
       include: [
         User,
@@ -37,11 +45,16 @@ router.get('/post/:id', async (req, res) => {
       // serialize the data
       const post = postData.get({ plain: true });
       // which view should we render for a single-post?
-      res.render('hmmmm what view should we render?', { post });
+      // *DONE
+      res.render('single-post', { 
+        post,
+        session: req.session
+      });
     } else {
       res.status(404).end();
     }
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });

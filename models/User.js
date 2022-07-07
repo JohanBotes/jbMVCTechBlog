@@ -33,12 +33,17 @@ const User = sequelizeConnection.define('user', {
     timestamps: false,
     freezeTableName: true,
     modelName: 'users',
-    underscored: true
+    underscored: true,
 });
 
 User.beforeCreate(async user => {
-    console.log('intercepted data: ', user);
-    user.password = await bcrypt.hash(user.password, 10);
+    const userData = user.dataValues;
+    userData.password = await bcrypt.hash(userData.password, 10);
 });
+
+User.prototype.validatePassword = function (rawPassword) {
+    console.log('this user password: ', this.password);
+    return bcrypt.compare(rawPassword, this.password);
+}
 
 module.exports = User;
