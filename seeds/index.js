@@ -38,8 +38,8 @@ const posts = [
     },
 
     {
-        title: 'where are my pants',
-        content: 'under the bed',
+        title: 'hey stranger',
+        content: 'pretty cool post, huh?',
         user_id: 1
     },
 
