@@ -1,10 +1,11 @@
 
+
 <div>
-    <ul>
-        {{#each posts}}
-            <li>{{title}}</li>
-        {{/each}}
-    </ul>
+    <p>All Posts</p>
+    {{>post-box this}}
+    {{!-- {{#each posts}}
+        {{>post-box this=this session=session}}
+    {{/each}} --}}
 </div>
 
 

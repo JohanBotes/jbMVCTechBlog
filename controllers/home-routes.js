@@ -7,16 +7,21 @@ router.get('/', async (req, res) => {
     // we need to get all Posts and include the User for each (change lines 8 and 9)
     // *DONE
     const postData = await Post.findAll({
-      include: [User],
+      attributes: { exclude: ['user_id', 'updatedAt'] },
+      include: [
+        { model: User, attributes: { exclude: ['password', 'createdAt'] }},
+        { model: Comment },
+      ],
     });
+
     // serialize the data
     // *DONE
-    const posts = postData.map((post) => post.get({ plain: true }));
+    const posts = postData.map(post => post.get({ plain: true }));
+
     // we should render all the posts here
     // *DONE
     res.render('all-posts', { 
-      posts, 
-      session: req.session 
+      payload: { posts, session: req.session }
     });
   } catch (err) {
     console.log(err);
@@ -32,11 +37,23 @@ router.get('/post/:id', async (req, res) => {
     // *DONE
     const postData = await Post.findByPk(req.params.id, {
       // helping you out with the include here, no changes necessary
+      attributes: {
+        exclude: ['user_id', 'updatedAt'] 
+      },
+
       include: [
-        User,
-        {
-          model: Comment,
-          include: [User],
+        { 
+          model: User, 
+          attributes: { 
+            exclude: ['password', 'createdAt'] 
+          }
+        },
+        { 
+          model: Comment, 
+          include: {
+            model: User,
+            attributes: { exclude: ['password'] }
+          }
         },
       ],
     });
@@ -47,8 +64,7 @@ router.get('/post/:id', async (req, res) => {
       // which view should we render for a single-post?
       // *DONE
       res.render('single-post', { 
-        post,
-        session: req.session
+        payload: { posts: [post], session: req.session }
       });
     } else {
       res.status(404).end();

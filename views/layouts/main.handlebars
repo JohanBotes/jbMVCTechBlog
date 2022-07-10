@@ -7,6 +7,7 @@
   <title>The Tech Blog</title>
   <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/all-posts.css">
 </head>
 
 <body class="flex-column min-100-vh">
@@ -14,7 +15,7 @@
     <ul>
       <li class="li-inline nav-item"><a href="/">Home</a></li>
       <li class="li-inline nav-item"><a href="/dashboard">Dashboard</a></li>
-      {{#if session.loggedIn}}
+      {{#if payload.session.loggedIn}}
         <li class="li-inline nav-item"><a href="#" id="logout-link">Logout</a></li>
       {{else}}
         <li class="li-inline nav-item"><a href="/login">Login</a></li>
@@ -36,4 +37,7 @@
 
 </html>
 
-<script src="./js/logout.js"></script>
+<script src="/js/logout.js"></script>
+
+
+
