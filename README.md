@@ -22,9 +22,8 @@ This app is community-driven. Users can make an account, log in, and immediately
 
 
   ## Contributors
-  - William J. Horn
+  - Johan Botes
   ## Questions
-  Find me on GitHub: <https://github.com/william-horn>
+  Find me on GitHub: <https://github.com/JohanBotes>
   
-Reach me by email: williamjosephhorn@gmail.com
-
+Reach me by email: johan.botes@udexx.com
